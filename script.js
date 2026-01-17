@@ -1,3 +1,8 @@
+let firstOperand = null;
+let operator = null;
+let secondOperand = null;
+
+
 function add (a, b) {
 	let result = a + b;
 	return result;
@@ -14,11 +19,27 @@ function multiply (a, b) {
 }
 
 function divide (a, b) {
-	let result = a / b;
-	return result;
+	if (b === 0) return "Oops! You can't divide by 0.";
+  	return a / b;
 }
 
-console.log(add(0.57, 89));
-console.log(subtract(0.99, 0.4));
-console.log(multiply(10, 2));
-console.log(divide(0.9, 0.3));
+
+function operate(a, operator, b) {
+	const x = Number(a);
+  	const y = Number(b);
+
+  	if (Number.isNaN(x) || Number.isNaN(y)) return null;
+
+	if (operator === "+") {
+		return add(x, y);
+	} else if (operator === "-") {
+		return subtract(x, y);
+	} else if (operator === "*") {
+		return multiply(x, y);
+	} else if (operator === "/") {
+		return divide(x, y);
+	}
+
+}
+
+// operate(firstOperand, operator, secondOperand);
