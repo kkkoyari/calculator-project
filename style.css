@@ -1,0 +1,91 @@
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: monospace, system-ui, sans-serif;
+}
+
+body {
+  background-color: rgb(100, 115, 130);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.calculator {
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	flex-direction: column;
+	border: 8px solid rgb(0, 255, 242);
+	border-radius: 50px;
+	width: 33vw; 
+	max-width: 360px;  
+  	min-width: 280px; 
+  	height: 100%;
+	background-color: #2b2f36;
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+	rgba(0, 0, 0, 0.12) 0px -12px 30px,
+	rgba(0, 0, 0, 0.12) 0px 4px 6px,
+	rgba(0, 0, 0, 0.17) 0px 12px 13px, 
+	rgba(0, 0, 0, 0.09) 0px -3px 5px;
+	padding: 20px;
+	gap: 20px;
+}
+
+.display, .keys {
+	display: flex;
+}
+
+.display {
+	flex: 1;
+	font-size: 5rem;
+  	font-weight: 500;
+	align-items: center;
+  	justify-content: flex-end;
+	color: white;
+	background-color: #395959;
+	border-radius: 30px;
+}
+
+.keys {
+	flex: 3;
+	flex-direction: column;
+	align-items: stretch;   
+  	justify-content: stretch;
+	gap: 4px;
+}
+
+.row {
+	display: flex;
+	flex: 1;
+	gap: 4px;
+	width: 100%;
+}
+
+.row > button {
+  	height: 100%;
+  	flex: 1;
+}
+
+.row > .third-button {
+	flex: 2;
+}
+
+button {
+	flex: 1;
+  	font-size: 2rem;
+  	border-radius: 30px;
+  	border: none;
+  	background-color: #1d9193;
+  	color: white;
+  	cursor: pointer;
+}
+
+button:active {
+  	transform: scale(0.97);
+}
