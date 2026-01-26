@@ -1,7 +1,54 @@
+const display = document.querySelector(".display > .display");
+const keys = document.querySelector(".keys");
+
 let firstOperand = null;
 let operator = null;
 let secondOperand = null;
 
+let displayValue = "0";
+display.textContent = displayValue;
+
+keys.addEventListener("click", (e) => {
+	if (!e.target.matches("button")) return;
+
+  	const button = e.target;
+
+	if (button.dataset.digit) {
+		if (displayValue === "0") {
+			displayValue = button.dataset.digit;
+			display.textContent = button.textContent;
+		} else {
+			displayValue += button.dataset.digit;
+			display.textContent += button.textContent;
+		}
+	}
+
+	if (button.dataset.operator) {
+		if (displayValue === "0") {
+			displayValue = button.dataset.operator;
+			display.textContent = button.textContent;
+		} else {
+			displayValue += button.dataset.operator;
+			display.textContent += button.textContent;
+		}
+	}
+
+	if (button.dataset.action === "clear") {
+		displayValue = "0";
+		display.textContent = displayValue;
+	}
+
+	if (button.dataset.action === "decimal") {
+		if (displayValue === "0") {
+			displayValue = button.textContent;
+			display.textContent = button.textContent;
+		} else {
+			displayValue += button.textContent;
+			display.textContent += button.textContent;
+		}
+	}
+
+});
 
 function add (a, b) {
 	let result = a + b;
