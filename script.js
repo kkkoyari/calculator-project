@@ -23,15 +23,15 @@ keys.addEventListener("click", (e) => {
 		}
 	}
 
-	if (button.dataset.operator) {
-		if (displayValue === "0") {
-			displayValue = button.dataset.operator;
-			display.textContent = button.textContent;
-		} else {
-			displayValue += button.dataset.operator;
-			display.textContent += button.textContent;
-		}
-	}
+	// if (button.dataset.operator) {
+	// 	if (displayValue === "0") {
+	// 		displayValue = button.dataset.operator;
+	// 		display.textContent = button.textContent;
+	// 	} else {
+	// 		displayValue += button.dataset.operator;
+	// 		display.textContent += button.textContent;
+	// 	}
+	// }
 
 	if (button.dataset.action === "clear") {
 		displayValue = "0";
@@ -40,9 +40,9 @@ keys.addEventListener("click", (e) => {
 
 	if (button.dataset.action === "decimal") {
 		if (displayValue === "0") {
-			displayValue = button.textContent;
-			display.textContent = button.textContent;
-		} else {
+			displayValue += button.textContent;
+			display.textContent += button.textContent;
+		} else if (displayValue.includes(".") !== true) {
 			displayValue += button.textContent;
 			display.textContent += button.textContent;
 		}
