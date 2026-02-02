@@ -48,6 +48,18 @@ keys.addEventListener("click", (e) => {
 		}
 	}
 
+	if (button.dataset.action === "delete") {
+		if (displayValue !== "0") {
+			displayValue = displayValue.substring(0, displayValue.length - 1);
+			display.textContent = display.textContent.substring(0, display.textContent.length - 1);
+		
+			if (displayValue === "") {
+				displayValue = "0";
+				display.textContent = displayValue;
+			}
+		}
+	}
+
 });
 
 function add (a, b) {
