@@ -8,28 +8,55 @@ let secondOperand = null;
 let displayValue = "0";
 display.textContent = displayValue;
 
+let waitingForFirstOperand = true;
+let waitingForSecondOperand = false;
+let replaceOnNextDigit = false;
+let negativeNumber = true;
+
 keys.addEventListener("click", (e) => {
 	if (!e.target.matches("button")) return;
 
   	const button = e.target;
 
 	if (button.dataset.digit) {
-		if (displayValue === "0") {
+		if (displayValue === "0" && waitingForFirstOperand) {
 			displayValue = button.dataset.digit;
 			display.textContent = button.textContent;
-		} else {
+			firstOperand = displayValue;
+			negativeNumber = false;
+
+		} else if (waitingForFirstOperand) {
 			displayValue += button.dataset.digit;
 			display.textContent += button.textContent;
+			firstOperand = displayValue;
+
+		} else if (waitingForSecondOperand && replaceOnNextDigit) {
+			displayValue = button.dataset.digit;
+			display.textContent = button.textContent;
+			secondOperand = displayValue;
+			replaceOnNextDigit = false;
+
+		} else if (waitingForSecondOperand && !replaceOnNextDigit) {
+			displayValue += button.dataset.digit;
+			display.textContent += button.textContent;
+			secondOperand = displayValue;
+			
 		}
 	}
 
 	// if (button.dataset.operator) {
-	// 	if (displayValue === "0") {
+	// 	if (displayValue === "0" && negativeNumber) {
 	// 		displayValue = button.dataset.operator;
 	// 		display.textContent = button.textContent;
-	// 	} else {
-	// 		displayValue += button.dataset.operator;
-	// 		display.textContent += button.textContent;
+	// 		negativeNumber = false;
+	// 	} else if (waitingForFirstOperand) {
+	// 		operator = button.dataset.operator;
+	// 		firstOperand = displayValue;
+
+	// 		waitingForFirstOperand = false;
+	// 		waitingForSecondOperand = true;
+	// 		replaceOnNextDigit = true;
+
 	// 	}
 	// }
 
