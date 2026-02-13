@@ -1,5 +1,6 @@
 const display = document.querySelector(".display > .display");
 const keys = document.querySelector(".keys");
+// Add keyboard support
 
 let firstOperand = null;
 let operator = null;
@@ -23,7 +24,7 @@ keys.addEventListener("click", (e) => {
 			displayValue = button.dataset.digit;
 			display.textContent = button.textContent;
 			firstOperand = displayValue;
-			
+
 			negativeNumber = false;
 
 		} else if (waitingForFirstOperand) {
@@ -47,7 +48,7 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.operator) {
-		if (displayValue === "0" && negativeNumber) {
+		if (button.dataset.operator === "-" && displayValue === "0" && negativeNumber) {
 			displayValue = button.dataset.operator;
 			display.textContent = button.textContent;
 
@@ -64,7 +65,6 @@ keys.addEventListener("click", (e) => {
 			operator = button.dataset.operator;
 
 		} else if (waitingForSecondOperand && !replaceOnNextDigit) {
-			// also should work if user enters negative number after division or multiply operators
 
 			let result = operate(firstOperand, operator, secondOperand);
 
@@ -72,6 +72,7 @@ keys.addEventListener("click", (e) => {
 			displayValue = result;
 			display.textContent = result;
 			operator = button.dataset.operator;
+			secondOperand = null;
 
 			replaceOnNextDigit = true;
 
@@ -123,12 +124,13 @@ keys.addEventListener("click", (e) => {
 		}
 	}
 
-	if (button.dataset.action === "equals") {
+	if (button.dataset.action === "equals" && (secondOperand !== null)) {
 		let result = operate(firstOperand, operator, secondOperand);
 
 		firstOperand = result;
 		displayValue = result;
 		display.textContent = result;
+		secondOperand = null;
 
 		waitingForFirstOperand = true;
 		waitingForSecondOperand = false;
@@ -140,22 +142,32 @@ keys.addEventListener("click", (e) => {
 
 function add (a, b) {
 	let result = a + b;
-	return result;
+	return Number.isInteger(result)
+    ? result
+    : Number(result.toFixed(2));
 }
 
 function subtract (a, b) {
 	let result = a - b;
-	return result;
+	return Number.isInteger(result)
+    ? result
+    : Number(result.toFixed(2));
 }
 
 function multiply (a, b) {
 	let result = a * b;
-	return result;
+	return Number.isInteger(result)
+    ? result
+    : Number(result.toFixed(2));
 }
 
 function divide (a, b) {
 	if (b === 0) return "Oops! You can't divide by 0.";
-  	return a / b;
+
+  	let result = a / b;
+	return Number.isInteger(result)
+    ? result
+    : Number(result.toFixed(2));
 }
 
 
