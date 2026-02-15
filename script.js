@@ -13,6 +13,7 @@ let waitingForFirstOperand = true;
 let waitingForSecondOperand = false;
 let replaceOnNextDigit = false;
 let negativeNumber = true
+let justEvaluated = false;
 
 keys.addEventListener("click", (e) => {
 	if (!e.target.matches("button")) return;
@@ -20,12 +21,26 @@ keys.addEventListener("click", (e) => {
   	const button = e.target;
 
 	if (button.dataset.digit) {
+
 		if (displayValue === "0" && waitingForFirstOperand) {
 			displayValue = button.dataset.digit;
 			display.textContent = button.textContent;
 			firstOperand = displayValue;
 
 			negativeNumber = false;
+
+		} else if (justEvaluated && operator === null) {
+			firstOperand = null;
+			secondOperand = null;
+
+			waitingForFirstOperand = true;
+			waitingForSecondOperand = false;
+			replaceOnNextDigit = false;
+			justEvaluated = false;
+
+			displayValue = button.dataset.digit;
+			display.textContent = button.textContent;
+			firstOperand = displayValue;
 
 		} else if (waitingForFirstOperand) {
 			displayValue += button.dataset.digit;
@@ -63,6 +78,7 @@ keys.addEventListener("click", (e) => {
 
 		} else if (waitingForSecondOperand && replaceOnNextDigit) {
 			operator = button.dataset.operator;
+			justEvaluated = false;
 
 		} else if (waitingForSecondOperand && !replaceOnNextDigit) {
 
@@ -75,6 +91,7 @@ keys.addEventListener("click", (e) => {
 			secondOperand = null;
 
 			replaceOnNextDigit = true;
+			justEvaluated = false;
 
 		}
 	}
@@ -130,11 +147,13 @@ keys.addEventListener("click", (e) => {
 		firstOperand = result;
 		displayValue = result;
 		display.textContent = result;
+		operator = null;
 		secondOperand = null;
 
-		waitingForFirstOperand = true;
-		waitingForSecondOperand = false;
+		waitingForFirstOperand = false;
+		waitingForSecondOperand = true;
 		replaceOnNextDigit = true;
+		justEvaluated = true;
 
 	}
 
