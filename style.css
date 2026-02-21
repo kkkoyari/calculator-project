@@ -66,6 +66,11 @@ body {
   display: inline-block;
 }
 
+.display.error {
+  color: rgb(246, 63, 63);
+  font-size: 2rem;
+  white-space: normal;
+}
 
 .keys {
 	flex: 3;

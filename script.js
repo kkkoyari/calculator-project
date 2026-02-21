@@ -21,6 +21,7 @@ keys.addEventListener("click", (e) => {
   	const button = e.target;
 
 	if (button.dataset.digit) {
+		display.classList.remove("error");
 
 		if (displayValue === "0" && waitingForFirstOperand) {
 			displayValue = button.dataset.digit;
@@ -63,6 +64,8 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.operator) {
+		display.classList.remove("error");
+
 		if (button.dataset.operator === "-" && displayValue === "0" && negativeNumber) {
 			displayValue = button.dataset.operator;
 			display.textContent = button.textContent;
@@ -84,6 +87,10 @@ keys.addEventListener("click", (e) => {
 
 			let result = operate(firstOperand, operator, secondOperand);
 
+			if (result === "Oops! You can't divide by 0.") {
+				display.classList.add("error");
+			}
+
 			firstOperand = result;
 			displayValue = result;
 			display.textContent = result;
@@ -97,6 +104,8 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.action === "clear") {
+		display.classList.remove("error");
+
 		displayValue = "0";
 		display.textContent = displayValue;
 		firstOperand = null;
@@ -111,6 +120,7 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.action === "decimal") {
+		display.classList.remove("error");
 		displayValue = displayValue.toString();
 
 		if (displayValue === "0") {
@@ -125,9 +135,23 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.action === "delete") {
+		display.classList.remove("error");
 		displayValue = displayValue.toString();
 
-		if (displayValue !== "0") {
+		if (display.textContent === "Oops! You can't divide by 0.") {
+
+			displayValue = "0";
+			display.textContent = displayValue;
+			firstOperand = null;
+			operator = null;
+			secondOperand = null;
+
+			waitingForFirstOperand = true;
+			waitingForSecondOperand = false;
+			negativeNumber = true;
+			replaceOnNextDigit = false;
+
+		} else if (displayValue !== "0") {
 			displayValue = displayValue.substring(0, displayValue.length - 1);
 			display.textContent = displayValue;
 		
@@ -142,7 +166,13 @@ keys.addEventListener("click", (e) => {
 	}
 
 	if (button.dataset.action === "equals" && (secondOperand !== null)) {
+		display.classList.remove("error");
+
 		let result = operate(firstOperand, operator, secondOperand);
+
+		if (result === "Oops! You can't divide by 0.") {
+			display.classList.add("error");
+		}
 
 		firstOperand = result;
 		displayValue = result;
