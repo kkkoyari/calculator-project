@@ -1,4 +1,4 @@
-const display = document.querySelector(".display > .display");
+const display = document.querySelector(".display");
 const keys = document.querySelector(".keys");
 // Add keyboard support
 

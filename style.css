@@ -37,20 +37,35 @@ body {
 	gap: 20px;
 }
 
-.display, .keys {
+.display-container, .keys {
 	display: flex;
 }
 
-.display {
-	flex: 1;
-	font-size: 5rem;
-  	font-weight: 500;
-	align-items: center;
-  	justify-content: flex-end;
-	color: white;
-	background-color: #395959;
-	border-radius: 30px;
+.display-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #395959;
+  border-radius: 30px;
+  padding: 0 20px;
 }
+
+.display-inner {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  direction: rtl;
+}
+
+.display {
+  font-size: 5rem;
+  font-weight: 500;
+  color: white;
+  direction: ltr;
+  display: inline-block;
+}
+
 
 .keys {
 	flex: 3;
