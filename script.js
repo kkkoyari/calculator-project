@@ -1,6 +1,6 @@
 const display = document.querySelector(".display");
 const keys = document.querySelector(".keys");
-// Add keyboard support
+
 
 let firstOperand = null;
 let operator = null;
@@ -14,6 +14,36 @@ let waitingForSecondOperand = false;
 let replaceOnNextDigit = false;
 let negativeNumber = true
 let justEvaluated = false;
+
+document.addEventListener("keydown", (e) => {
+	const key = e.key;
+
+	if (key === "Escape") {
+		e.preventDefault;
+		document.querySelector('[data-action="clear"]').click();
+		return;
+	} else if (key === "Backspace") {
+		e.preventDefault;
+		document.querySelector('[data-action="delete"]').click();
+		return;
+	} else if (key === "Enter" || key === "=") {
+		e.preventDefault;
+		document.querySelector('[data-action="equals"]').click();
+		return;
+	} else if (key === ".") {
+		e.preventDefault;
+		document.querySelector('[data-action="decimal"]').click();
+		return;
+	} else if (key === "-" || key === "+" || key === "/" || key === "*") {
+		e.preventDefault;
+		document.querySelector(`[data-operator="${key}"]`).click();
+		return;
+	} else if (key >= "0" && key <= "9") {
+		e.preventDefault;
+		document.querySelector(`[data-digit="${key}"]`).click();
+		return;
+	}
+})
 
 keys.addEventListener("click", (e) => {
 	if (!e.target.matches("button")) return;
